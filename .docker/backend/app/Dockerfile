@@ -18,9 +18,7 @@ RUN set -eux && \
 COPY conf/php.ini /usr/local/etc/php/php.ini
 COPY conf/docker.conf /usr/local/etc/php-fpm.d/docker.conf
 
-# install Composer
-RUN curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer && \
-    chmod +x /usr/local/bin/composer
+# Composerの準備
+COPY --from=composer/composer /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
