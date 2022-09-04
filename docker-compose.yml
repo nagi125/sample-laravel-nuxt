@@ -44,3 +44,24 @@ services:
     stdin_open: true
     tty: true
     restart: always
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      TZ: 'Asia/Tokyo'
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel_development
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+    volumes:
+      - database:/var/lib/mysql
+      - ./.docker/backend/db/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./.docker/backend/db/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+
+volumes:
+  database:
