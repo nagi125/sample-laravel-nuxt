@@ -37,6 +37,34 @@ services:
     build:
       context: ./.docker/backend/app
       dockerfile: Dockerfile
+    environment:
+      APP_NAME: 'SAMPLE'
+      APP_ENV: 'development'
+      APP_DEBUG: 'true'
+      APP_URL: 'http://localhost'
+      LOG_CHANNEL: 'stderr'
+      DB_CONNECTION: 'mysql'
+      DB_HOST: 'db'
+      DB_PORT: '3306'
+      DB_DATABASE: 'laravel_development'
+      DB_USERNAME: 'docker'
+      DB_PASSWORD: 'docker'
+      BROADCAST_DRIVER: 'log'
+      QUEUE_CONNECTION: 'sync'
+      SESSION_DRIVER: 'redis'
+      SESSION_LIFETIME: '120'
+      CACHE_DRIVER: 'redis'
+      REDIS_HOST: 'redis'
+      REDIS_PASSWORD: 'null'
+      REDIS_PORT: '6379'
+      MAIL_MAILER: 'smtp'
+      MAIL_HOST: 'mailhog'
+      MAIL_PORT: '1025'
+      MAIL_USERNAME: 'null'
+      MAIL_PASSWORD: 'null'
+      MAIL_ENCRYPTION: 'null'
+      MAIL_FROM_ADDRESS: 'hello@example.com'
+      MAIL_FROM_NAME: "${APP_NAME}"
     expose:
       - 9000
     volumes:
@@ -52,10 +80,10 @@ services:
     container_name: db
     environment:
       TZ: 'Asia/Tokyo'
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel_development
-      MYSQL_USER: docker
-      MYSQL_PASSWORD: docker
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'laravel_development'
+      MYSQL_USER: 'docker'
+      MYSQL_PASSWORD: 'docker'
     volumes:
       - database:/var/lib/mysql
       - ./.docker/backend/db/conf/my.cnf:/etc/mysql/conf.d/my.cnf
